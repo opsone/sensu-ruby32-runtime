@@ -1,4 +1,4 @@
-FROM debian:10
+FROM debian:11
 
 ARG RUBY_VERSION=3.2.2
 ARG ASSET_VERSION=local_build
@@ -6,7 +6,7 @@ ARG GREP_EXCLUDE='(ld.so|ld-linux-x86-64.so|libBrokenLocale.so|libSegFault.so|li
 
 RUN apt-get update && apt-get install -y build-essential curl
 
-RUN curl -L https://github.com/postmodern/ruby-install/archive/v0.9.0.tar.gz -o ruby-install-0.9.0.tar.gz && \
+RUN curl -L https://github.com/postmodern/ruby-install/releases/download/v0.9.0/ruby-install-0.9.0.tar.gz -o ruby-install-0.9.0.tar.gz && \
   tar -xzvf ruby-install-0.9.0.tar.gz && \
   cd ruby-install-0.9.0/ && \
   make install && \
@@ -17,7 +17,7 @@ RUN LIBS=$(find /opt/rubies/ruby-${RUBY_VERSION} -type f -executable -exec ldd {
   for f in $LIBS; do if [ -e $f ]; then echo "Copying Library: $f" && cp $f /opt/rubies/ruby-${RUBY_VERSION}/lib/; fi; done
 
 RUN mkdir /assets/ && \
-  export SENSU_ASSET="/assets/sensu-ruby-runtime_${ASSET_VERSION}_ruby-${RUBY_VERSION}_debian_linux_amd64.tar.gz" && \
+  export SENSU_ASSET="/assets/sensu-ruby-runtime_${ASSET_VERSION}_ruby-${RUBY_VERSION}_debian11_linux_amd64.tar.gz" && \
   tar -czf $SENSU_ASSET -C /opt/rubies/ruby-${RUBY_VERSION}/ .
 
 ENV PATH=$PATH:/opt/rubies/ruby-${RUBY_VERSION}/bin
