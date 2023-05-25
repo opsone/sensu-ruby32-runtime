@@ -35,8 +35,8 @@ Please note the following instructions:
    a local_build Sensu Go Asset.
 
    ```
-   $ docker build --build-arg "RUBY_VERSION=3.2.0" -t sensu-ruby-runtime:3.2.0-alpine -f Dockerfile.alpine .
-   $ docker build --build-arg "RUBY_VERSION=3.2.0" -t sensu-ruby-runtime:3.2.0-debian -f Dockerfile.debian .
+   $ docker build --build-arg "RUBY_VERSION=3.2.0" -t sensu-ruby32-runtime:3.2.0-alpine -f Dockerfile.alpine .
+   $ docker build --build-arg "RUBY_VERSION=3.2.0" -t sensu-ruby32-runtime:3.2.0-debian -f Dockerfile.debian .
    ```
 
 2. Extract your new sensu-ruby asset, and get the SHA-512 hash for your
@@ -44,8 +44,8 @@ Please note the following instructions:
 
    ```
    $ mkdir assets
-   $ docker run -v "$PWD/assets:/tmp/assets" sensu-ruby-runtime:3.2.0-debian cp /assets/sensu-ruby-runtime_3.2.0_debian_linux_amd64.tar.gz /tmp/assets/
-   $ shasum -a 512 assets/sensu-ruby-runtime_3.2.0_debian_linux_amd64.tar.gz
+   $ docker run -v "$PWD/assets:/tmp/assets" sensu-ruby32-runtime:3.2.0-debian cp /assets/sensu-ruby32-runtime_3.2.0_debian_linux_amd64.tar.gz /tmp/assets/
+   $ shasum -a 512 assets/sensu-ruby32-runtime_3.2.0_debian_linux_amd64.tar.gz
    ```
 
 3. Put that asset somewhere that your Sensu agent can fetch it. Perhaps add it to the Bonsai asset index!
@@ -68,7 +68,7 @@ Please note the following instructions:
        "annotations": {}
      },
      "spec": {
-       "url": "http://your-asset-server-here/assets/sensu-ruby-runtime-3.2.0-debian.tar.gz",
+       "url": "http://your-asset-server-here/assets/sensu-ruby32-runtime-3.2.0-debian.tar.gz",
        "sha512": "4f926bf4328fbad2b9cac873d117f771914f4b837c9c85584c38ccf55a3ef3c2e8d154812246e5dda4a87450576b2c58ad9ab40c9e2edc31b288d066b195b21b",
        "filters": [
          "entity.system.os == 'linux'",
@@ -122,7 +122,7 @@ Please note the following instructions:
      },
      "spec": {
        "command": "helloworld.rb",
-       "runtime_assets": ["sensu-ruby-runtime-3.2.0-debian", "helloworld-v0.1"],
+       "runtime_assets": ["sensu-ruby32-runtime-3.2.0-debian", "helloworld-v0.1"],
        "publish": true,
        "interval": 10,
        "subscriptions": ["docker"]
