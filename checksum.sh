@@ -13,6 +13,4 @@ sha512_file="${project}_${version}_sha512-checksums.txt"
 
 cd dist
 
-echo "${sha512_file}" > sha512_file
-
-sha512sum ./*.tar.gz > "${sha512_file}"
+shasum -a 512 ./*.tar.gz > "${sha512_file}"
