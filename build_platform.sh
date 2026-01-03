@@ -1,6 +1,7 @@
 #!/bin/bash
 
 ignore_errors=0
+platform=debian13
 ruby_version=3.2.2
 asset_version=${TAG:-local-build}
 asset_filename=sensu-ruby32-runtime_${asset_version}_ruby-${ruby_version}_${platform}_linux_amd64.tar.gz
