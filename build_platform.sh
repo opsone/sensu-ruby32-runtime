@@ -17,9 +17,9 @@ else
   if [[ "$(docker images -q ${asset_image} 2> /dev/null)" == "" ]]; then
     echo "Docker image not found...we can build"
     echo "Building Docker Image: sensu-ruby32-runtime:${ruby_version}-${platform}"
-    docker build --build-arg "RUBY_VERSION=$ruby_version" --build-arg "ASSET_VERSION=$asset_version" -t ${asset_image} -f Dockerfile.${platform} .
+    docker build --platform linux/amd64 --build-arg "RUBY_VERSION=$ruby_version" --build-arg "ASSET_VERSION=$asset_version" -t ${asset_image} -f Dockerfile.${platform} .
     echo "Making Asset: /assets/${asset_filename}"
-    docker run -v "$PWD/dist:/dist" ${asset_image} cp /assets/${asset_filename} /dist/
+    docker run --platform linux/amd64 -v "$PWD/dist:/dist" ${asset_image} cp /assets/${asset_filename} /dist/
   else
     echo "Image already exists!!!"
     exit 1
