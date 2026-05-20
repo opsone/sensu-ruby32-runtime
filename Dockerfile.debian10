@@ -4,7 +4,10 @@ ARG RUBY_VERSION=3.2.2
 ARG ASSET_VERSION=local_build
 ARG GREP_EXCLUDE='(ld.so|ld-linux-x86-64.so|libBrokenLocale.so|libSegFault.so|libanl.so|libc.so|libdl.so|libm.so|libmvec.so|libnss_compat.so|libnss_dns.so|libnss_files.so|libpthread.so|libresolv.so|librt.so|libthread_db.so|libutil.so|vdso.so)'
 
-RUN apt-get update && apt-get install -y build-essential curl
+RUN sed -i 's|http://deb.debian.org/debian|http://archive.debian.org/debian|g' /etc/apt/sources.list && \
+    sed -i 's|http://security.debian.org/debian-security|http://archive.debian.org/debian-security|g' /etc/apt/sources.list && \
+    sed -i '/buster-updates/d' /etc/apt/sources.list && \
+    apt-get update && apt-get install -y build-essential curl
 
 RUN curl -L https://github.com/postmodern/ruby-install/archive/v0.9.0.tar.gz -o ruby-install-0.9.0.tar.gz && \
   tar -xzvf ruby-install-0.9.0.tar.gz && \
